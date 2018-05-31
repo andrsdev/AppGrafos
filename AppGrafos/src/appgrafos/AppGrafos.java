@@ -5,6 +5,10 @@
  */
 package appgrafos;
 import GrafoDirigido.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -13,36 +17,18 @@ import java.util.Random;
  */
 public class AppGrafos {
 
+    public static String inputPathA = System.getProperty("user.dir") + "\\files\\aeropuertos.txt";
+    public static String inputPathH = System.getProperty("user.dir") + "\\files\\horas.txt";
+    public static String[] names = new String[10];
+    public static String[] hours = new String[10];
+
+           
     public static void main(String[] args) {
         Random rnd = new Random();
-        String[] names = new String[10];
-        String[] hours = new String[10];
 
         GrafoD aeropuertos = new GrafoD();
-
-
-        names[0] = "Aeropuerto La Aurora";
-        names[1] = "New York Airport";
-        names[2] = "México D.F. Azteca";
-        names[3] = "Chicago Airport";
-        names[4] = "Los Angeles AR";
-        names[5] = "AR de Machupichu";
-        names[6] = "Aeropuerto de Arenal";
-        names[7] = "AR Internacinal";
-        names[8] = "Mundo Maya AR";
-        names[9] = "Aeropuerto De Bahía";
-
-        hours[0] = "7:15am";
-        hours[1] = "8:45am";
-        hours[2] = "9:00am";
-        hours[3] = "9:30am";
-        hours[4] = "11:15am";
-        hours[5] = "12:30pm";
-        hours[6] = "4:00pm";
-        hours[7] = "6:10pm";
-        hours[8] = "8:00pm";
-        hours[9] = "9:20pm";
-       
+        leerAeropuertos();
+        leerHoras();
        
         for (int i = 0; i < 10; i++) {
             aeropuertos.insertarVertice(names[i]);
@@ -70,5 +56,50 @@ public class AppGrafos {
         
         
     }
+    
+    public static void leerAeropuertos(){
+        BufferedReader br = null;
+        int pos =0;
+        //Lectura de archivo.txt y creación de la lista.
+        try {      
+            File inputFile = new File(inputPathA);
+            br = new BufferedReader(new FileReader(inputFile));   
+            String line = br.readLine();
+            
+            while (line != null) {
+                names[pos] = line;
+                line = br.readLine();    
+                pos++;
+            }
+            br.close();
+
+        } 
+        catch (IOException | NumberFormatException e) {
+            System.out.println("El archivo no se ha encontrado o su formato no es válido");
+        }       
+    }
+    
+    public static void leerHoras(){
+        BufferedReader br = null;
+        int pos =0;
+        //Lectura de archivo.txt y creación de la lista.
+        try {      
+            File inputFile = new File(inputPathH);
+            br = new BufferedReader(new FileReader(inputFile));   
+            String line = br.readLine();
+            
+            while (line != null) {
+                hours[pos] = line;
+                line = br.readLine();    
+                pos++;
+            }
+            br.close();
+
+        } 
+        catch (IOException | NumberFormatException e) {
+            System.out.println("El archivo no se ha encontrado o su formato no es válido");
+        }       
+    }
+    
     
 }
